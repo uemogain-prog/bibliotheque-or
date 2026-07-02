@@ -2,82 +2,613 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Bibliothèque d'Or — Boutique</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+  <title>La Bibliothèque d’Or — Boutique</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --noir: #050505;
+      --or: #d4af37;
+      --blanc: #ffffff;
+      --gris: #999999;
+      --rouge: #e53935;
+      --bleu: #1e88e5;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--noir);
+      color: var(--blanc);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAVBAR */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      position: sticky;
+      top: 0;
+      background: rgba(5, 5, 5, 0.96);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      font-size: 0.9rem;
+      color: var(--or);
+      text-transform: uppercase;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 24px;
+      font-size: 0.9rem;
+    }
+
+    .nav-menu a {
+      color: var(--blanc);
+      opacity: 0.85;
+    }
+
+    .nav-menu a:hover {
+      color: var(--or);
+    }
+
+    /* BANNIÈRE */
+    .banner {
+      background: #200000;
+      color: var(--blanc);
+      padding: 10px 7%;
+      font-size: 0.85rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .banner span {
+      color: var(--or);
+      margin-right: 6px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 40px;
+      padding: 40px 7% 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hero-title {
+      font-size: 1.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--or);
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+
+    .hero-sub em {
+      color: var(--or);
+      font-style: normal;
+    }
+
+    .hero-text {
+      font-size: 0.95rem;
+      color: var(--gris);
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-main {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid var(--or);
+      background: var(--or);
+      color: var(--noir);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .btn-secondary {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: transparent;
+      color: var(--blanc);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .hero-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-pill span {
+      font-weight: 600;
+      color: var(--or);
+    }
+
+    /* SECTION CATALOGUE */
+    .section {
+      padding: 30px 7% 50px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--or);
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--gris);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: radial-gradient(circle at top left, rgba(212, 175, 55, 0.12), #050505);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-top {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr);
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: block;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-tagline {
+      font-size: 0.85rem;
+      color: var(--gris);
+      margin-bottom: 8px;
+    }
+
+    .card-list {
+      font-size: 0.8rem;
+      color: var(--blanc);
+      list-style: none;
+    }
+
+    .card-list li::before {
+      content: "• ";
+      color: var(--or);
+    }
+
+    .card-price-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      font-size: 0.85rem;
+    }
+
+    .price-current {
+      font-weight: 700;
+      color: var(--blanc);
+    }
+
+    .price-old {
+      text-decoration: line-through;
+      color: var(--gris);
+      font-size: 0.8rem;
+    }
+
+    .price-badge {
+      background: var(--rouge);
+      color: var(--blanc);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .price-note {
+      font-size: 0.75rem;
+      color: var(--gris);
+      margin-top: 2px;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .btn-amazon {
+      background: var(--rouge);
+      color: var(--blanc);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-ebook {
+      background: transparent;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--blanc);
+      cursor: pointer;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-mail {
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-mail-label {
+      font-size: 0.8rem;
+      color: var(--gris);
+    }
+
+    .card-mail-form {
+      display: flex;
+      gap: 6px;
+    }
+
+    .card-mail-input {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: #000000;
+      color: var(--blanc);
+      font-size: 0.8rem;
+    }
+
+    .card-mail-btn {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--or);
+      background: var(--or);
+      color: var(--noir);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .card-footer-icons {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--gris);
+    }
+
+    .card-footer-icons span::before {
+      content: "✔ ";
+      color: var(--or);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero-right {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .nav-menu {
+        flex-wrap: wrap;
+      }
+      .hero {
+        padding: 26px 5% 20px;
+      }
+      .section {
+        padding: 24px 5% 40px;
+      }
+    }
+  </style>
+</head>
 <body>
 
-  <header class="header">
-    <div class="logo">La Bibliothèque d'Or</div>
-    <nav class="nav">
-      <a href="#catalogue">Catalogue</a>
-      <a href="#apropos">À propos</a>
-      <a href="#exclusivites">Exclusivités</a>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-logo">LA BIBLIOTHÈQUE D’OR</div>
+    <nav class="nav-menu">
+      <a href="#catalogue">CATALOGUE</a>
+      <a href="#apropos">À PROPOS</a>
+      <a href="#exclusivites">EXCLUSIVITÉS</a>
+      <a href="#guide">GUIDE</a>
     </nav>
   </header>
 
+  <!-- BANNIÈRE -->
+  <div class="banner">
+    <span>🔥 OFFRE LIMITÉE</span>
+    JUSQU’À -40% SUR LA SÉLECTION DU MOIS · LIVRAISON NUMÉRIQUE IMMÉDIATE
+  </div>
+
+  <!-- HERO -->
   <section class="hero">
-    <h1>Bibliothèque numérique d'excellence</h1>
-    <p>Des livres qui transforment votre vie.</p>
-    <a href="#catalogue" class="btn-primary">Découvrir le catalogue</a>
-  </section>
-
-  <section class="newsletter">
-    <h2>Recevez nos exclusivités</h2>
-    <p>Inscrivez-vous et recevez en avant-première nos nouvelles sorties.</p>
-    <form class="newsletter-form">
-      <input type="email" placeholder="Votre email">
-      <button type="submit">Obtenir mon avantage →</button>
-    </form>
-  </section>
-
-  <section id="catalogue" class="catalogue">
-    <h2>Notre sélection</h2>
-
-    <div class="products">
-      <div class="product-card">
-        <img src="images/livre1.jpg" alt="Surcharge Mentale">
-        <h3>Surcharge Mentale</h3>
-        <p>Un programme de 30 jours pour reprendre le contrôle.</p>
-        <div class="price">
-          <span class="price-new">4,99 €</span>
-          <span class="price-old">9,99 €</span>
-        </div>
-        <a href="#" class="btn-secondary">Voir →</a>
+    <div>
+      <h1 class="hero-title">BIBLIOTHÈQUE NUMÉRIQUE D’EXCELLENCE</h1>
+      <p class="hero-sub">Des livres qui <em>transforment</em> votre vie.</p>
+      <p class="hero-text">
+        Accédez instantanément à des ouvrages soigneusement sélectionnés — au format Kindle, PDF ou livre papier —
+        livrés directement via Amazon. Chaque titre est conçu pour être <strong>actionnable</strong>, concret et
+        applicable dans votre quotidien.
+      </p>
+      <div class="hero-actions">
+        <a href="#catalogue" class="btn-main">Découvrir le catalogue</a>
+        <a href="#exclusivites" class="btn-secondary">Voir les exclusivités</a>
       </div>
-
-      <div class="product-card">
-       <img src="images/livre2.jpg" alt="Budget Simple Jeune">
-        <h3>Budget Simple Jeune</h3>
-        <p>Maîtrisez votre budget et éliminez le stress financier.</p>
-        <div class="price">
-          <span class="price-new">4,99 €</span>
-          <span class="price-old">9,99 €</span>
-        </div>
-        <a href="#" class="btn-secondary">Voir →</a>
+    </div>
+    <div class="hero-right">
+      <div class="hero-pill">
+        <span>48h</span> Livraison papier via Amazon
       </div>
-
-      <div class="product-card">
-        <img src="images/livre3.jpg" alt="Persuasion Magnétique">
-        <h3>Persuasion Magnétique</h3>
-        <p>Les techniques de persuasion des négociateurs du FBI.</p>
-        <div class="price">
-          <span class="price-new">12,99 €</span>
-          <span class="price-old">19,99 €</span>
-        </div>
-        <a href="#" class="btn-secondary">Voir →</a>
+      <div class="hero-pill">
+        <span>⚡</span> Accès immédiat aux versions digitales
+      </div>
+      <div class="hero-pill">
+        <span>⭐ 4,9</span> Note moyenne des lecteurs
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <p>Boutique partenaire Amazon KDP · Paiement sécurisé · Livraison numérique immédiate</p>
-    <p>Mentions légales · CGV · Contact · Politique de confidentialité</p>
-    <p>© 2026 La Bibliothèque d'Or — Tous droits réservés</p>
-    <p class="disclaimer">Ce site est indépendant et redirige vers Amazon.fr pour le paiement et la livraison.</p>
-  </footer>
+  <!-- CATALOGUE -->
+  <section id="catalogue" class="section">
+    <div class="section-header">
+      <h2 class="section-title">Sélection principale</h2>
+      <p class="section-sub">Programmes complets disponibles en Kindle et ebook PDF.</p>
+    </div>
+
+    <div class="cards">
+
+      <!-- LIVRE 1 -->
+      <article class="card">
+        <div class="card-top">
+          <img src="images/livre1.jpg" alt="Surcharge Mentale">
+          <div>
+            <h3 class="card-title">Surcharge Mentale</h3>
+            <p class="card-tagline">Programme de 30 jours pour reprendre le contrôle de votre charge mentale.</p>
+            <ul class="card-list">
+              <li>Plan d’action quotidien, simple et concret.</li>
+              <li>Exercices guidés pour alléger le mental.</li>
+              <li>Outil pratique pour les personnes débordées.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-price-row">
+          <span class="price-current">4,99 €</span>
+          <span class="price-old">9,99 €</span>
+          <span class="price-badge">-50%</span>
+        </div>
+        <p class="price-note">Prix Amazon aujourd’hui · Accès immédiat après achat.</p>
+
+        <div class="card-actions">
+          <!-- Remplace # par ton lien Amazon Kindle -->
+          <a href="#" class="btn-amazon">
+            🛒 Acheter maintenant sur Amazon (Kindle)
+          </a>
+          <!-- Remplace # par ton lien vers la version PDF/ebook -->
+          <a href="#" class="btn-ebook">
+            📄 Acheter la version ebook (PDF)
+          </a>
+        </div>
+
+        <div class="card-mail">
+          <div class="card-mail-label">
+            Laisser votre email pour être prévenu des mises à jour et bonus liés à ce livre.
+          </div>
+          <form class="card-mail-form" action="#" method="post">
+            <input class="card-mail-input" type="email" name="email_surcharge" placeholder="Votre email" required>
+            <button class="card-mail-btn" type="submit">Je veux être prévenu</button>
+          </form>
+        </div>
+
+        <div class="card-footer-icons">
+          <span>Paiement sécurisé Amazon</span>
+          <span>Accès immédiat Kindle/PDF</span>
+          <span>Livraison 48h si papier</span>
+        </div>
+      </article>
+
+      <!-- LIVRE 2 -->
+      <article class="card">
+        <div class="card-top">
+          <img src="images/livre2.jpg" alt="Budget Simple Jeune">
+          <div>
+            <h3 class="card-title">Budget Simple Jeune</h3>
+            <p class="card-tagline">Le système minimaliste pour maîtriser votre budget sans tableur compliqué.</p>
+            <ul class="card-list">
+              <li>Méthode pas à pas pour suivre vos dépenses.</li>
+              <li>Outil adapté aux étudiants et jeunes actifs.</li>
+              <li>Focus sur la sérénité financière, pas sur la privation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-price-row">
+          <span class="price-current">3,99 €</span>
+          <span class="price-old">7,99 €</span>
+          <span class="price-badge">-50%</span>
+        </div>
+        <p class="price-note">Prix Amazon aujourd’hui · Accès immédiat après achat.</p>
+
+        <div class="card-actions">
+          <!-- Remplace # par ton lien Amazon Kindle -->
+          <a href="#" class="btn-amazon">
+            🛒 Acheter maintenant sur Amazon (Kindle)
+          </a>
+          <!-- Remplace # par ton lien vers la version PDF/ebook -->
+          <a href="#" class="btn-ebook">
+            📄 Acheter la version ebook (PDF)
+          </a>
+        </div>
+
+        <div class="card-mail">
+          <div class="card-mail-label">
+            Laisser votre email pour recevoir les modèles de suivi et mises à jour du système.
+          </div>
+          <form class="card-mail-form" action="#" method="post">
+            <input class="card-mail-input" type="email" name="email_budget" placeholder="Votre email" required>
+            <button class="card-mail-btn" type="submit">Je veux être prévenu</button>
+          </form>
+        </div>
+
+        <div class="card-footer-icons">
+          <span>Paiement sécurisé Amazon</span>
+          <span>Accès immédiat Kindle/PDF</span>
+          <span>Livraison 48h si papier</span>
+        </div>
+      </article>
+
+      <!-- LIVRE 3 -->
+      <article class="card">
+        <div class="card-top">
+          <img src="images/livre3.jpg" alt="Persuasion Magnétique">
+          <div>
+            <h3 class="card-title">Persuasion Magnétique</h3>
+            <p class="card-tagline">Les techniques de persuasion inspirées des négociateurs du FBI.</p>
+            <ul class="card-list">
+              <li>Scripts et exemples concrets pour le quotidien.</li>
+              <li>Approche éthique, centrée sur l’écoute.</li>
+              <li>Outil pour négocier, convaincre et apaiser les tensions.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-price-row">
+          <span class="price-current">5,99 €</span>
+          <span class="price-old">11,99 €</span>
+          <span class="price-badge">-50%</span>
+        </div>
+        <p class="price-note">Prix Amazon aujourd’hui · Accès immédiat après achat.</p>
+
+        <div class="card-actions">
+          <!-- Remplace # par ton lien Amazon Kindle -->
+          <a href="#" class="btn-amazon">
+            🛒 Acheter maintenant sur Amazon (Kindle)
+          </a>
+          <!-- Remplace # par ton lien vers la version PDF/ebook -->
+          <a href="#" class="btn-ebook">
+            📄 Acheter la version ebook (PDF)
+          </a>
+        </div>
+
+        <div class="card-mail">
+          <div class="card-mail-label">
+            Laisser votre email pour recevoir les fiches pratiques et mises à jour du programme.
+          </div>
+          <form class="card-mail-form" action="#" method="post">
+            <input class="card-mail-input" type="email" name="email_persuasion" placeholder="Votre email" required>
+            <button class="card-mail-btn" type="submit">Je veux être prévenu</button>
+          </form>
+        </div>
+
+        <div class="card-footer-icons">
+          <span>Paiement sécurisé Amazon</span>
+          <span>Accès immédiat Kindle/PDF</span>
+          <span>Livraison 48h si papier</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
 
 </body>
 </html>
